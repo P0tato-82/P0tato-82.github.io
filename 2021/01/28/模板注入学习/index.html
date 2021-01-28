@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.4k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      16
        分钟
     </span>
   
@@ -275,6 +275,16 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;[].__class__.__base__.__subclasses__()[<span class="hljs-number">71</span>].__init__.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&quot;ls&quot;</span>).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
 <p><img src="https://i.loli.net/2021/01/28/8kowHefEdbVN2PC.png" srcset="/img/loading.gif"></p>
 <p>发现fl4g，将ls改为 cat fl4g即可<br><img src="https://i.loli.net/2021/01/28/6FyNqnc4EmiIgO7.png" srcset="/img/loading.gif"></p>
+<hr>
+<h3 id="附部分指令："><a href="#附部分指令：" class="headerlink" title="附部分指令："></a>附部分指令：</h3><p>__class__ 返回类型所属的对象</p>
+<p>__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</p>
+<p>__base__ 返回该对象所继承的基类</p>
+<blockquote>
+<p>__base__和__mro__都是用来寻找基类的</p>
+</blockquote>
+<p>__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</p>
+<p>__init__类的初始化方法</p>
+<p>__globals__对包含函数全局变量的字典的引用</p>
 
             </div>
             <hr>
