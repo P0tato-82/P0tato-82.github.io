@@ -236,7 +236,6 @@
             
             <div class="markdown-body">
               <h1 id="前置简介"><a href="#前置简介" class="headerlink" title="前置简介"></a>前置简介</h1><h2 id="SSTI的简单讲解"><a href="#SSTI的简单讲解" class="headerlink" title="SSTI的简单讲解"></a>SSTI的简单讲解</h2><p>SSTI 全称Server Side Template Injection，服务器模板注入。模板引擎可以让（网站）程序实现界面与数据分离，业务代码与逻辑代码的分离，这大大提升了开发效率，良好的设计也使得代码重用变得更加容易。</p>
-<a id="more"></a>
 <p>与此同时，它也扩展了黑客的攻击面。除了常规的 XSS 外，注入到模板中的代码还有可能引发 RCE（远程代码执行）。通常来说，这类问题会在博客，CMS，wiki 中产生。虽然模板引擎会提供沙箱机制，攻击者依然有许多手段绕过它。</p>
 <p>服务器模板注入（Server-side template injection）是当攻击者能够用本地的模板语法去注入一个恶意的payload，然后再服务器端执行该模板的攻击手法。</p>
 <h2 id="为什么需要服务器模板"><a href="#为什么需要服务器模板" class="headerlink" title="为什么需要服务器模板"></a>为什么需要服务器模板</h2><p>简单来说，页面上的数据需要不断更新，即为渲染。后台语言通过一些模板引擎生成HTML。</p>
