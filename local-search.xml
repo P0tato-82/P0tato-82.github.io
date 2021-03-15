@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>【CTF】三月题单</title>
+    <link href="/2021/03/16/%E4%B8%89%E6%9C%88%E9%A2%98%E5%8D%95/"/>
+    <url>/2021/03/16/%E4%B8%89%E6%9C%88%E9%A2%98%E5%8D%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="MRCTF2020-套娃"><a href="#MRCTF2020-套娃" class="headerlink" title="[MRCTF2020] 套娃"></a>[MRCTF2020] 套娃</h1><h2 id="WriteUp"><a href="#WriteUp" class="headerlink" title="WriteUp"></a>WriteUp</h2><p>php代码审计题</p><p><strong>拿到题目首先看到：</strong><br><img src="https://i.loli.net/2021/03/16/voAINaQ2JTYdWxR.png" alt="EIHI52HV32_K2TC~GSL0_XU.png"></p><p>用到的函数：</p><blockquote><p>· substr_count($, ) 判断变量内所找字符的出现次数<br><br>· 正则表达式</p></blockquote><p>所传变量不能有_字符，故可以用.或者%5F代替绕过</p><p>同时23333后加上%0a表示换行来匹配后面的正则表达式</p><p>故传参 <strong>b.u.p.t=23333%0a</strong></p><p><strong>接着来到第二步：</strong></p><p>网页代码中出现以下提示（TSCTF-J里面也有这个<br>![QEKRF_Y_PDWM_Y_4_Z`_8FU.png](<a href="https://i.loli.net/2021/03/16/8VSbAtj9XWsrIeh.png">https://i.loli.net/2021/03/16/8VSbAtj9XWsrIeh.png</a>)</p><p>浏览器解码后看到提示：<strong>post me Merak</strong></p><p>hackbar里post Merak等于任意值来到下一步</p><p><strong>第三步</strong></p><p><img src="https://i.loli.net/2021/03/16/OvbVCQgqywUoBmZ.png" alt="0@6A49@TX_BMH__1GYJ__LF.png"></p><p>自定义change函数 并且有一个if来判断是否可以访问flag</p><p>根据第二个if的判断条件，改ip为127.0.0.1</p><blockquote><p>file_get_contents():将文件内容输入为字符串</p></blockquote><p>故此处使用<a href="https://www.php.cn/php-ask-430458.html">php伪协议</a>的方法传递“todat ……”</p><p>最后一步就是读懂change</p><blockquote><p>ord():将字符转化为ASCII码<br><br>chr():将ASCII码转化为字符</p></blockquote><p>可知当file的值经过change函数处理后，返回值re=flag.php,逆推得file的值应当为ZmpdYSZmXGI=</p><p>大致推理如下：（乱<br><img src="https://i.loli.net/2021/03/16/6yRsHOuLElDP4Zf.jpg" alt="7786CFDE3968B4E15DA3AB1F2CB56C86.png"></p><p>构造payload，改ip 搞定<br><img src="https://i.loli.net/2021/03/16/qHfedhQRUa2BA9X.png" alt="Q`C_9O3JGO8_T`O0A_6OO4D.png"></p><h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><ol><li>php伪协议</li><li>部分php函数使用方法</li><li>正则匹配</li></ol><h1 id="V-amp-NCTF2021-Ez-game"><a href="#V-amp-NCTF2021-Ez-game" class="headerlink" title="[V&amp;NCTF2021]Ez_game"></a>[V&amp;NCTF2021]Ez_game</h1><h2 id="WriteUp-1"><a href="#WriteUp-1" class="headerlink" title="WriteUp"></a>WriteUp</h2><p>开局快乐游戏<br><img src="https://i.loli.net/2021/03/16/ceEfiyC9XGMuPNA.png" alt="_P5J__WJ_~MAA`~@_040`7P.png"></p><p>查看游戏源代码，没有加密<br><img src="https://i.loli.net/2021/03/16/WtI2wzJeUE8fZOL.png" alt="CS_O8RD_L@_KU4A815C6OHD.png"></p><p>在电脑上新建文件夹，创建命名为top的子文件夹，总之要创造出和上图文件结构一样的结构，并下载源码。点击Overrides载入刚才创好的文件夹，这时网页基于本地文件载入，修改本地js文件即可修改游戏。</p><p>![3ES9D`D9_89C0TK0O61P5M1.png](<a href="https://i.loli.net/2021/03/16/3nyV6O4gStAiqIu.png">https://i.loli.net/2021/03/16/3nyV6O4gStAiqIu.png</a>)</p><p>修改游戏参数<br><img src="https://i.loli.net/2021/03/16/AFoGPaflugyiwCB.png" alt="H4_``_~U2ZM_L__U5X_2D_M.png"><br><img src="https://i.loli.net/2021/03/16/vwjOU8MNJfD4lSZ.png" alt="N_I2YC_8DPAG_G1EEO__8ER.png"></p><h2 id="收获-1"><a href="#收获-1" class="headerlink" title="收获"></a>收获</h2><p>js文件的本地调试方式（在浏览器直接修改没有用之后学习到了</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>CTF</tag>
+      
+      <tag>Web</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Mysql语句</title>
     <link href="/2021/03/04/Mysql%E8%AF%AD%E5%8F%A5%E8%AE%B0%E5%BD%95-0/"/>
     <url>/2021/03/04/Mysql%E8%AF%AD%E5%8F%A5%E8%AE%B0%E5%BD%95-0/</url>

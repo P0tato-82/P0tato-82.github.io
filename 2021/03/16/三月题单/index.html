@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>归档 - 阿遠的BLOG</title>
+  <title>【CTF】三月题单 - 阿遠的BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -141,14 +157,59 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/6011990ec64f8_6011991559346.jpg') no-repeat center center;
+         style="background: url('/img/NorthPole_ZH-CN14730815128_1920x1080.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="所有文章">
+            <span class="h2" id="subtitle" title="【CTF】三月题单">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-16 01:22" pubdate>
+        2021年3月16日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      462 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -161,46 +222,118 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 4 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/03/16/%E4%B8%89%E6%9C%88%E9%A2%98%E5%8D%95/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【CTF】三月题单</span>
-      <time style="float: right;">03-16</time>
-    </a>
-  
-    
-    <a href="/2021/03/04/Mysql%E8%AF%AD%E5%8F%A5%E8%AE%B0%E5%BD%95-0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Mysql语句</span>
-      <time style="float: right;">03-04</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【CTF】三月题单</h1>
+            
+            <div class="markdown-body">
+              <h1 id="MRCTF2020-套娃"><a href="#MRCTF2020-套娃" class="headerlink" title="[MRCTF2020] 套娃"></a>[MRCTF2020] 套娃</h1><h2 id="WriteUp"><a href="#WriteUp" class="headerlink" title="WriteUp"></a>WriteUp</h2><p>php代码审计题</p>
+<p><strong>拿到题目首先看到：</strong><br><img src="https://i.loli.net/2021/03/16/voAINaQ2JTYdWxR.png" srcset="/img/loading.gif" alt="EIHI52HV32_K2TC~GSL0_XU.png"></p>
+<p>用到的函数：</p>
+<blockquote>
+<p>· substr_count($, ) 判断变量内所找字符的出现次数<br><br>· 正则表达式</p>
+</blockquote>
+<p>所传变量不能有_字符，故可以用.或者%5F代替绕过</p>
+<p>同时23333后加上%0a表示换行来匹配后面的正则表达式</p>
+<p>故传参 <strong>b.u.p.t=23333%0a</strong></p>
+<p><strong>接着来到第二步：</strong></p>
+<p>网页代码中出现以下提示（TSCTF-J里面也有这个<br>![QEKRF_Y_PDWM_Y_4_Z`_8FU.png](<a target="_blank" rel="noopener" href="https://i.loli.net/2021/03/16/8VSbAtj9XWsrIeh.png">https://i.loli.net/2021/03/16/8VSbAtj9XWsrIeh.png</a>)</p>
+<p>浏览器解码后看到提示：<strong>post me Merak</strong></p>
+<p>hackbar里post Merak等于任意值来到下一步</p>
+<p><strong>第三步</strong></p>
+<p><img src="https://i.loli.net/2021/03/16/OvbVCQgqywUoBmZ.png" srcset="/img/loading.gif" alt="0@6A49@TX_BMH__1GYJ__LF.png"></p>
+<p>自定义change函数 并且有一个if来判断是否可以访问flag</p>
+<p>根据第二个if的判断条件，改ip为127.0.0.1</p>
+<blockquote>
+<p>file_get_contents():将文件内容输入为字符串</p>
+</blockquote>
+<p>故此处使用<a target="_blank" rel="noopener" href="https://www.php.cn/php-ask-430458.html">php伪协议</a>的方法传递“todat ……”</p>
+<p>最后一步就是读懂change</p>
+<blockquote>
+<p>ord():将字符转化为ASCII码<br><br>chr():将ASCII码转化为字符</p>
+</blockquote>
+<p>可知当file的值经过change函数处理后，返回值re=flag.php,逆推得file的值应当为ZmpdYSZmXGI=</p>
+<p>大致推理如下：（乱<br><img src="https://i.loli.net/2021/03/16/6yRsHOuLElDP4Zf.jpg" srcset="/img/loading.gif" alt="7786CFDE3968B4E15DA3AB1F2CB56C86.png"></p>
+<p>构造payload，改ip 搞定<br><img src="https://i.loli.net/2021/03/16/qHfedhQRUa2BA9X.png" srcset="/img/loading.gif" alt="Q`C_9O3JGO8_T`O0A_6OO4D.png"></p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><ol>
+<li>php伪协议</li>
+<li>部分php函数使用方法</li>
+<li>正则匹配</li>
+</ol>
+<h1 id="V-amp-NCTF2021-Ez-game"><a href="#V-amp-NCTF2021-Ez-game" class="headerlink" title="[V&amp;NCTF2021]Ez_game"></a>[V&amp;NCTF2021]Ez_game</h1><h2 id="WriteUp-1"><a href="#WriteUp-1" class="headerlink" title="WriteUp"></a>WriteUp</h2><p>开局快乐游戏<br><img src="https://i.loli.net/2021/03/16/ceEfiyC9XGMuPNA.png" srcset="/img/loading.gif" alt="_P5J__WJ_~MAA`~@_040`7P.png"></p>
+<p>查看游戏源代码，没有加密<br><img src="https://i.loli.net/2021/03/16/WtI2wzJeUE8fZOL.png" srcset="/img/loading.gif" alt="CS_O8RD_L@_KU4A815C6OHD.png"></p>
+<p>在电脑上新建文件夹，创建命名为top的子文件夹，总之要创造出和上图文件结构一样的结构，并下载源码。点击Overrides载入刚才创好的文件夹，这时网页基于本地文件载入，修改本地js文件即可修改游戏。</p>
+<p>![3ES9D`D9_89C0TK0O61P5M1.png](<a target="_blank" rel="noopener" href="https://i.loli.net/2021/03/16/3nyV6O4gStAiqIu.png">https://i.loli.net/2021/03/16/3nyV6O4gStAiqIu.png</a>)</p>
+<p>修改游戏参数<br><img src="https://i.loli.net/2021/03/16/AFoGPaflugyiwCB.png" srcset="/img/loading.gif" alt="H4_``_~U2ZM_L__U5X_2D_M.png"><br><img src="https://i.loli.net/2021/03/16/vwjOU8MNJfD4lSZ.png" srcset="/img/loading.gif" alt="N_I2YC_8DPAG_G1EEO__8ER.png"></p>
+<h2 id="收获-1"><a href="#收获-1" class="headerlink" title="收获"></a>收获</h2><p>js文件的本地调试方式（在浏览器直接修改没有用之后学习到了</p>
 
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CTF/">CTF</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明来自阿遠的Blog </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/04/Mysql%E8%AF%AD%E5%8F%A5%E8%AE%B0%E5%BD%95-0/">
+                        <span class="hidden-mobile">Mysql语句</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -280,9 +413,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
