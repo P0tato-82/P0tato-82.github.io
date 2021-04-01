@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>【CTF】CTFHUB文件上传 - 阿遠的BLOG</title>
+  <title>MySQL中的information_schema库 - 阿遠的BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【CTF】CTFHUB文件上传">
+            <span class="h2" id="subtitle" title="MySQL中的information_schema库">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-28 12:08" pubdate>
-        2021年1月28日 中午
+      <time datetime="2021-04-02 00:06" pubdate>
+        2021年4月2日 凌晨
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      678 字
+      642 字
     </span>
   
 
@@ -232,36 +232,45 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【CTF】CTFHUB文件上传</h1>
+            <h1 style="display: none">MySQL中的information_schema库</h1>
             
             <div class="markdown-body">
-              <h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>文件上传漏洞是指攻击者上传了一个可执行的脚本文件到服务器，并执通过此脚本文件获得执行服务端命令的能力。这里上传的文件可以是木马，病毒，恶意脚本，钓鱼图片或者WebShell等。这种攻击方式是最为直接和有效的，</p>
-<h2 id="类型一：无验证"><a href="#类型一：无验证" class="headerlink" title="类型一：无验证"></a>类型一：无验证</h2><p>上传一句话木马，使用蚁剑连接获得flag</p>
-<h2 id="类型二：前端验证"><a href="#类型二：前端验证" class="headerlink" title="类型二：前端验证"></a>类型二：前端验证</h2><p>题目会规定上传类型，如果说判断速度较快基本上可以判断为前端验证。</p>
-<ul>
-<li>方法一：此时写一个一句话木马并保存为可上传的文件。再使用Burp抓包,修改文件后缀为.php即可。</li>
-<li>方法二：浏览器禁用JavaScript，防止验证文件后缀名。</li>
-</ul>
-<h2 id="类型三：-htaccess文件上传"><a href="#类型三：-htaccess文件上传" class="headerlink" title="类型三：.htaccess文件上传"></a>类型三：.htaccess文件上传</h2><blockquote>
-<p>htaccess 文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。- 通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。<br><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/howto/htaccess.html">.htassess官方文档</a></p>
-</blockquote>
-<p>法一：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"># FileMatch 参数即为文件名的正则匹配<br><span class="hljs-tag">&lt;<span class="hljs-name">FilesMatch</span> &quot;<span class="hljs-attr">sniperoj</span>&quot;&gt;</span><br>  SetHandler application/x-httpd-php<br><span class="hljs-tag">&lt;/<span class="hljs-name">FilesMatch</span>&gt;</span><br><br>#进行文件名的正则匹配，服务器会对文件名为sniperoj当做php解析<br></code></pre></td></tr></table></figure>
-<p>法二：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">AddType <span class="hljs-built_in">application</span>/x-httpd-php .jpg<br></code></pre></td></tr></table></figure>
-<h1 id="类型四：MIME绕过"><a href="#类型四：MIME绕过" class="headerlink" title="类型四：MIME绕过"></a>类型四：MIME绕过</h1><p>MIME：<br>客户端软件，区分不同种类的数据，例如web浏览器就是通过MIME类型来判断文件是GIF图片，还是可打印的PostScript文件。web服务器使用MIME来说明发送数据的种类， web客户端使用MIME来说明希望接收到的数据种类。<br>服务端MIME类型检测是通过检查http包的Content-Type字段中的值来判断上传文件是否合法的。</p>
-<p>常见的content-type字段：</p>
-<blockquote>
-<p>image/jpeg ：jpg图片格式<br>image/png ：png图片格式<br><br>image/gif ：gif图片格式<br><br>text/plain ：纯文本格式<br><br>text/xml ： XML格式<br><br>text/html ： HTML格式<br><br>multipart/form-data ： 需要在表单中进行文件上传时，就需要使用该格式</p>
-</blockquote>
-<hr>
-<p>图片木马的制作：<br>cmd执行：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">copy</span> <span class="hljs-selector-tag">logo</span><span class="hljs-selector-class">.jpg</span>/<span class="hljs-selector-tag">b</span>+<span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.php</span>/<span class="hljs-selector-tag">a</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.jpg</span><br></code></pre></td></tr></table></figure>
-<p><strong>logo.jpg</strong> 为任意图片</p>
-<p><strong>test.php</strong> 为我们要插入的木马代码</p>
-<p><strong>test.jpg</strong> 为我们要创建的图片马</p>
-<p><em>格式图片必须在php文件前面</em></p>
-<p>注意：图片的内容要尽量简短，以防内容过于复杂存在的一些字符会影响到原来的php内容(可以用画图工具直接新建一个画图然后保存)</p>
+              <p>MySQL的information_schema库中有个COLUMNS表，里面记录了mysql所有库中所有表的字段信息，该表信息如下：</p>
+<p>COLUMNS表的每一条记录都对应了数据库中某个表的某个字段，该表记录了如下信息：</p>
+<h2 id="TABLE-CATALOG"><a href="#TABLE-CATALOG" class="headerlink" title="TABLE_CATALOG"></a>TABLE_CATALOG</h2><p>MySQL官方文档中说，这个字段值永远是def，但没写这个字段是干嘛用的。</p>
+<p>网上有把这个叫表限定符的，有叫登记目录的。作用疑似是和其他种类的数据库做区分。</p>
+<h2 id="TABLE-SCHEMA🚩🚩"><a href="#TABLE-SCHEMA🚩🚩" class="headerlink" title="TABLE_SCHEMA🚩🚩"></a>TABLE_SCHEMA🚩🚩</h2><p>表格所属的库。</p>
+<h2 id="TABLE-NAME🚩🚩"><a href="#TABLE-NAME🚩🚩" class="headerlink" title="TABLE_NAME🚩🚩"></a>TABLE_NAME🚩🚩</h2><p>表名</p>
+<h2 id="COLUMN-NAME🚩🚩"><a href="#COLUMN-NAME🚩🚩" class="headerlink" title="COLUMN_NAME🚩🚩"></a>COLUMN_NAME🚩🚩</h2><p>字段名</p>
+<h2 id="ORDINAL-POSITION"><a href="#ORDINAL-POSITION" class="headerlink" title="ORDINAL_POSITION"></a>ORDINAL_POSITION</h2><p>字段标识。<br>其实就是字段编号，从1开始往后排。</p>
+<h2 id="COLUMN-DEFAULT"><a href="#COLUMN-DEFAULT" class="headerlink" title="COLUMN_DEFAULT"></a>COLUMN_DEFAULT</h2><p>字段默认值。</p>
+<h2 id="IS-NULLABLE"><a href="#IS-NULLABLE" class="headerlink" title="IS_NULLABLE"></a>IS_NULLABLE</h2><p>字段是否可以是NULL。</p>
+<p>该列记录的值是YES或者NO。</p>
+<h2 id="DATA-TYPE"><a href="#DATA-TYPE" class="headerlink" title="DATA_TYPE"></a>DATA_TYPE</h2><p>数据类型。</p>
+<p>里面的值是字符串，比如varchar，float，int。</p>
+<h2 id="CHARACTER-MAXIMUM-LENGTH"><a href="#CHARACTER-MAXIMUM-LENGTH" class="headerlink" title="CHARACTER_MAXIMUM_LENGTH"></a>CHARACTER_MAXIMUM_LENGTH</h2><p>字段的最大字符数。</p>
+<p>假如字段设置为varchar(50)，那么这一列记录的值就是50。</p>
+<p>该列只适用于二进制数据，字符，文本，图像数据。其他类型数据比如int，float，datetime等，在该列显示为NULL。</p>
+<h2 id="CHARACTER-OCTET-LENGTH"><a href="#CHARACTER-OCTET-LENGTH" class="headerlink" title="CHARACTER_OCTET_LENGTH"></a>CHARACTER_OCTET_LENGTH</h2><p>字段的最大字节数。</p>
+<p>和最大字符数一样，只适用于二进制数据，字符，文本，图像数据，其他类型显示为NULL。</p>
+<p>和最大字符数的数值有比例关系，和字符集有关。比如UTF8类型的表，最大字节数就是最大字符数的3倍。</p>
+<h2 id="NUMERIC-PRECISION"><a href="#NUMERIC-PRECISION" class="headerlink" title="NUMERIC_PRECISION"></a>NUMERIC_PRECISION</h2><p>数字精度。</p>
+<p>适用于各种数字类型比如int，float之类的。</p>
+<p>如果字段设置为int(10)，那么在该列保存的数值是9，少一位，还没有研究原因。</p>
+<p>如果字段设置为float(10,3)，那么在该列报错的数值是10。</p>
+<p>非数字类型显示为在该列NULL。</p>
+<h2 id="NUMERIC-SCALE"><a href="#NUMERIC-SCALE" class="headerlink" title="NUMERIC_SCALE"></a>NUMERIC_SCALE</h2><p>小数位数。</p>
+<p>和数字精度一样，适用于各种数字类型比如int，float之类。</p>
+<p>如果字段设置为int(10)，那么在该列保存的数值是0，代表没有小数。</p>
+<p>如果字段设置为float(10,3)，那么在该列报错的数值是3。</p>
+<p>非数字类型显示为在该列NULL。</p>
+<h2 id="DATETIME-PRECISION"><a href="#DATETIME-PRECISION" class="headerlink" title="DATETIME_PRECISION"></a>DATETIME_PRECISION</h2><p>datetime类型和SQL-92interval类型数据库的子类型代码。</p>
+<p>我本地datetime类型的字段在该列显示为0。</p>
+<p>其他类型显示为NULL。</p>
+<h2 id="CHARACTER-SET-NAME"><a href="#CHARACTER-SET-NAME" class="headerlink" title="CHARACTER_SET_NAME"></a>CHARACTER_SET_NAME</h2><p>字段字符集名称。比如utf8。</p>
+<h2 id="COLLATION-NAME"><a href="#COLLATION-NAME" class="headerlink" title="COLLATION_NAME"></a>COLLATION_NAME</h2><p>字符集排序规则。</p>
+<h2 id="比如utf8-general-ci，是不区分大小写一种排序规则。utf8-general-cs，是区分大小写的排序规则。"><a href="#比如utf8-general-ci，是不区分大小写一种排序规则。utf8-general-cs，是区分大小写的排序规则。" class="headerlink" title="比如utf8_general_ci，是不区分大小写一种排序规则。utf8_general_cs，是区分大小写的排序规则。"></a>比如utf8_general_ci，是不区分大小写一种排序规则。utf8_general_cs，是区分大小写的排序规则。</h2><h2 id="COLUMN-TYPE"><a href="#COLUMN-TYPE" class="headerlink" title="COLUMN_TYPE"></a>COLUMN_TYPE</h2><p>字段类型。比如float(9,3)，varchar(50)。</p>
+<p>基本上需要了解的就以上这些了</p>
 
             </div>
             <hr>
@@ -272,9 +281,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a>
                     
-                      <a class="hover-with-bg" href="/tags/CTF/">CTF</a>
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
                     
                   </div>
                 
@@ -287,15 +296,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/28/%5BCTF%5D%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【CTF】模板注入学习</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/03/16/%5BCTF%5D%E4%B8%89%E6%9C%88%E9%A2%98%E5%8D%95/">
+                        <span class="hidden-mobile">【CTF】三月练习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
