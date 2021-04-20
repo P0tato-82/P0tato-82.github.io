@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>【BUUOJ】Web-Online Tool - 阿遠的BLOG</title>
+  <title>【CTF】四月题单 - 阿遠的BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【BUUOJ】Web-Online Tool">
+            <span class="h2" id="subtitle" title="【CTF】四月题单">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-19 14:10" pubdate>
-        2021年4月19日 下午
+      <time datetime="2021-04-20 19:31" pubdate>
+        2021年4月20日 晚上
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      413 字
+      729 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      8
        分钟
     </span>
   
@@ -232,10 +232,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【BUUOJ】Web-Online Tool</h1>
+            <h1 style="display: none">【CTF】四月题单</h1>
             
             <div class="markdown-body">
-              <h2 id="WP"><a href="#WP" class="headerlink" title="WP"></a>WP</h2><p>PHP代码审计：<br><img src="https://i.loli.net/2021/04/19/la6cGN5tdzrFgy2.png" srcset="/img/loading.gif"></p>
+              <h1 id="【BUUOJ】Online-Tool"><a href="#【BUUOJ】Online-Tool" class="headerlink" title="【BUUOJ】Online Tool"></a>【BUUOJ】Online Tool</h1><h2 id="WP"><a href="#WP" class="headerlink" title="WP"></a>WP</h2><p>PHP代码审计：<br><img src="https://i.loli.net/2021/04/19/la6cGN5tdzrFgy2.png" srcset="/img/loading.gif"></p>
 <p>本题主要考点就是 <code>escapeshellarg()</code> 函数和 <code>escapeshellcmd()</code> 函数的漏洞。</p>
 <p>这两个函数的官方文档如下：</p>
 <p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.escapeshellarg.php">escapeshellarg</a></p>
@@ -255,6 +255,23 @@
 <p>蚁剑连接，在首目录下可以看到flag</p>
 <p><img src="https://i.loli.net/2021/04/19/yIapwTr3ZNWlmXo.png" srcset="/img/loading.gif"></p>
 <p><img src="https://i.loli.net/2021/04/19/KkO3woTZSh9qaiY.png" srcset="/img/loading.gif"></p>
+<h1 id="BUUOJ-RoarCTF-2019-Easy-Calc"><a href="#BUUOJ-RoarCTF-2019-Easy-Calc" class="headerlink" title="[BUUOJ]-[RoarCTF 2019]Easy Calc"></a>[BUUOJ]-[RoarCTF 2019]Easy Calc</h1><h2 id="WP-1"><a href="#WP-1" class="headerlink" title="WP"></a>WP</h2><p>题目打开是一个计算器。开始想到的是模板注入，但是抓包发现所有计算都传入了一个 <code>calc.php</code> 的文件。</p>
+<p>而且在网页源码中发现了hint，那么要做的是绕过WAF</p>
+<p><img src="https://i.loli.net/2021/04/20/k6s1LJOUXZVbei3.png" srcset="/img/loading.gif"></p>
+<p>进入calc.php:<br><img src="https://i.loli.net/2021/04/20/kX5FW6cCJeEGpnM.png" srcset="/img/loading.gif"></p>
+<p>那么这里要用到的是PHP字符串解析漏洞。引用别人的讲解：</p>
+<blockquote>
+<p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。<br>值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。<br>如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p>
+</blockquote>
+<p>那么我们将传参 <code>?num</code>改为 <code>? num</code>,在变量前加入空格，绕过了WAF，同时PHP解析时又将空格删去。</p>
+<p>构造payload：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title">var_dump</span>(<span class="hljs-title">scandir</span>(<span class="hljs-title">chr</span>(<span class="hljs-number">47</span>)));</span><br></code></pre></td></tr></table></figure>
+<p>返回值：<br><img src="https://i.loli.net/2021/04/20/HzavFnY7BecEGSi.png" srcset="/img/loading.gif"></p>
+<p>可以发现f1agg文件，那么我们再次绕过读取文件。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">var_dump(<span class="hljs-name">file_get_contents</span>(<span class="hljs-name">chr</span>(<span class="hljs-number">47</span>).chr(<span class="hljs-number">102</span>).chr(<span class="hljs-number">49</span>).chr(<span class="hljs-number">97</span>).chr(<span class="hljs-number">103</span>).chr(<span class="hljs-number">103</span>)))<br></code></pre></td></tr></table></figure>
+<p>其等价于</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title">var_dump</span>(<span class="hljs-title">file_get_contents</span>(<span class="hljs-string">&quot;/flagg&quot;</span>))</span><br></code></pre></td></tr></table></figure>
+<p>取得flag</p>
 
             </div>
             <hr>
@@ -265,7 +282,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/web/">web</a>
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
                     
                       <a class="hover-with-bg" href="/tags/CTF/">CTF</a>
                     
