@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>归档 - 阿遠的BLOG</title>
+  <title>js原型链污染 - 阿遠的BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -141,14 +157,59 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/6011990ec64f8_6011991559346.jpg') no-repeat center center;
+         style="background: url('/img/NorthPole_ZH-CN14730815128_1920x1080.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="所有文章">
+            <span class="h2" id="subtitle" title="js原型链污染">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-03 18:28" pubdate>
+        2021年7月3日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      384 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -161,46 +222,94 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 9 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/01/28/%5BCTF%5D%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【CTF】模板注入学习</span>
-      <time style="float: right;">01-28</time>
-    </a>
-  
-    
-    <a href="/2021/01/28/%5BCTF%5DCTFHUB%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【CTF】CTFHUB文件上传</span>
-      <time style="float: right;">01-28</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">js原型链污染</h1>
+            
+            <div class="markdown-body">
+              <p>JavaScript是一门灵活的语言，基于原型实现继承，原型是Javascript的继承的基础。它本身不提供一个 class实现。<br>在 Javascript，每一个实例对象都有一个prototype属性，prototype 属性</p>
+<p>可以向对象添加属性和方法。</p>
+<p>object.prototype.name=value</p>
+<p>在 Javascript，每一个实例对象都有一个__proto__属性，这个实例属性 指向对象的原型对象(即原型)。可以通过以下方式访问得到某一实例对 象的原型对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">objectname[<span class="hljs-string">&quot;__proto__&quot;</span>]<br><br>objectname.__proto__<br><br>objectname.constructor.prototype<br></code></pre></td></tr></table></figure>
+<p>object.a.b = value 如果可以控制a、b、value的值，将a设置为 proto，我们就可以给object对象的原型设置一个b属性，值为value。这样 所有继承object对象原型的实例对象在本身不拥有b属性的情况下，都会拥有b 属性，且值为value。</p>
+<p><strong>例子：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyTest</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">this</span>.test=<span class="hljs-string">&quot;ttt&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/07/03/qu9eXlpv24g3GNQ.png" srcset="/img/loading.gif"></p>
+<p>我们来看这一段代码，原本t1实例对象中是没有ccc属性的，但在我给t2做了私有属性__proto__赋值以后（test2.__proto__指向Test的原型prototype），t1.ccc有值了</p>
+<p>我们何时可以控制实例对象的__proto__来污染原型链呢，只要找到可以控制数组（对象）的键名的位置即可，比如</p>
+<p>1.对象clone</p>
+<p>2.对象merge</p>
+<h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><h2 id="GYCTF2020-Ez-Express"><a href="#GYCTF2020-Ez-Express" class="headerlink" title="[GYCTF2020]Ez_Express"></a>[GYCTF2020]Ez_Express</h2><p>扫描可得到<a target="_blank" rel="noopener" href="http://www.zip文件,这是整个网站的备份文件,打开可以看见源码./">www.zip文件，这是整个网站的备份文件，打开可以看见源码。</a></p>
+<blockquote>
+<p>。。。。。还在研究 弄完了一块交 这方面的题目再找两三个吧</p>
+</blockquote>
 
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CTF/">CTF</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明来自阿遠的Blog </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/03/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">PHP反序列化学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -280,9 +389,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
