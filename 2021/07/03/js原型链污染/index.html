@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      850 字
+      832 字
     </span>
   
 
@@ -235,17 +235,16 @@
             <h1 style="display: none">JS原型链污染</h1>
             
             <div class="markdown-body">
-              <p>JavaScript是一门灵活的语言，基于原型实现继承，原型是Javascript的继承的基础。它本身不提供一个 class实现。<br>在 Javascript，每一个实例对象都有一个prototype属性，prototype 属性</p>
-<p>可以向对象添加属性和方法。</p>
+              <p>JavaScript基于原型实现继承，原型是Javascript的继承的基础。它本身不提供一个 class实现。<br>在 Javascript，每一个实例对象都有一个prototype属性，prototype 属性可以向对象添加属性和方法。</p>
 <p>object.prototype.name=value</p>
-<p>在 Javascript，每一个实例对象都有一个__proto__属性，这个实例属性 指向对象的原型对象(即原型)。可以通过以下方式访问得到某一实例对 象的原型对象：</p>
+<p>Javascript每一个实例对象都有一个__proto__属性，这个实例属性指向对象的原型对象(即原型)。可以通过以下方式访问得到某一实例对 象的原型对象：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">objectname[<span class="hljs-string">&quot;__proto__&quot;</span>]<br><br>objectname.__proto__<br><br>objectname.constructor.prototype<br></code></pre></td></tr></table></figure>
 <p>object.a.b = value 如果可以控制a、b、value的值，将a设置为 proto，我们就可以给object对象的原型设置一个b属性，值为value。这样 所有继承object对象原型的实例对象在本身不拥有b属性的情况下，都会拥有b 属性，且值为value。</p>
 <p><strong>例子：</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyTest</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">this</span>.test=<span class="hljs-string">&quot;ttt&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/07/860ef914190c5936.png" srcset="/img/loading.gif"></p>
-<p>我们来看这一段代码，原本t1实例对象中是没有ccc属性的，但在我给t2做了私有属性__proto__赋值以后（test2.__proto__指向Test的原型prototype），t1.ccc有值了</p>
-<p>我们何时可以控制实例对象的__proto__来污染原型链呢，只要找到可以控制数组（对象）的键名的位置即可，比如</p>
+<p>这一段代码原本t1实例对象中是没有ccc属性的，但我给t2做了私有属性__proto__赋值以后（test2.__proto__指向Test的原型prototype），t1.ccc有值了</p>
+<p>何时可以控制实例对象的__proto__来污染原型链：只要找到可以控制数组（对象）的键名的位置即可，比如</p>
 <p>1.对象clone</p>
 <p>2.对象merge</p>
 <p><strong>js审计如果看见merge，clone函数，可以往原型链污染靠，跟进找一下关键的函数，找污染点</strong></p>
